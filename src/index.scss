@@ -1,0 +1,23 @@
+@font-face {
+  font-family: 'sauce';
+  src:  url('./Sauce-Code.otf');
+ }
+
+body {
+  background: green;
+}
+
+.code {
+  font-size: 16px;
+  color: #333;
+}
+
+.useFonts{
+  color: #FFF;
+  font-family: 'sauce';
+}
+
+.hello {
+  background: url('./happy.jpg');
+  background-repeat: no-repeat;
+}
