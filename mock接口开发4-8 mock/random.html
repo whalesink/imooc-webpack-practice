@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Mock.js/1.0.0/mock-min.js" integrity="sha256-3h5yfyYcVemdL7msGK+LgfjdaknO7VKW4o/8bziM/ds=" crossorigin="anonymous"></script>
+  <title>Document</title>
+</head>
+<body>
+
+  <img id="avatar" alt="">
+  <p id="content-line"></p>
+
+  <script>
+
+    (function(w, d){
+
+
+      var rand = Mock.Random;
+      var data = {
+        email: rand.email(),
+        name: rand.cname(),
+        avatar: rand.image()
+      };
+
+      avatar.src = data.avatar;
+
+      data = JSON.stringify(data, null, 2);
+
+      console.log(data);
+
+      d.write(data);
+
+
+    })(window, document);
+
+  </script>
+</body>
+</html>

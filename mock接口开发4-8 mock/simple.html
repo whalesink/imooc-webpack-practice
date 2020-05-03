@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Mock.js/1.0.0/mock-min.js" integrity="sha256-3h5yfyYcVemdL7msGK+LgfjdaknO7VKW4o/8bziM/ds=" crossorigin="anonymous"></script>
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    (function(w, d){
+
+      var data = Mock.mock({
+        'list|1-10':[
+          {
+            'id|+1': 1,
+            'name': '@cname'
+          }
+        ]
+      });
+
+      d.write(JSON.stringify(data, null, 2))
+
+      console.log(JSON.stringify(data, null, 2));
+      
+
+    })(window, document);
+
+  </script>
+</body>
+</html>

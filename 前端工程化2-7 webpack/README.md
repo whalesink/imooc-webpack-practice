@@ -1,6 +1,6 @@
 # webpack使用练习 - 加载资源
 
-webpack基础回顾 >> [我的博客](https://cocoonut.top/2020-03-22/)
+webpack基础回顾 >> [知识总结]](https://cocoonut.top/2020-03-22/)
 
 ## 如何运行/调试？
 

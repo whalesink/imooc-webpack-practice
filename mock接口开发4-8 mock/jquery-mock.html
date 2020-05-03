@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Mock.js/1.0.0/mock-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <label for="page">页码：</label>
+  <input type="number" id="page" name="page" value="1">
+  <label for="num">数量：</label>
+  <input type="number" id="num" name="num" value="5">
+  <button id="btn" style="border: 2px solid red;">punch here！</button>
+  <div id="wrap">
+    <textarea id="content" cols="100" rows="45" style="margin-top: 20px;"></textarea>
+  </div>
+  <script>
+
+
+    // btn点击事件
+    $('#btn').click(function(){
+
+      // 清空内容
+      $('#content').html();
+
+      // 获取用户输入
+      var num = $('#num').val();
+
+      // mock数据
+      // 匹配该域名下所有list请求
+      Mock.mock(/^http:\/\/cocoonut.top\/list.*/ , {
+        'status|+1': 1,
+        ['data|'+ num]:[
+          {
+            'tid|+1': 1,
+            'title': '@sentence(5)',
+            'catalog': 'index',
+            'fav|1000-9999': 1000,
+            'created': '@date(yyyy-MM-dd HH:mm:ss)',
+            'isEnd|1': false,
+            'answer': /\d{2}/,
+            'user': {
+              'avatar': '@image("200x200")',
+              'name': '@cname',
+              'isVip|1': false,
+              'level|1-6': 1
+            }
+          }
+        ],
+        'msg':'success'
+      })
+
+      // 发出请求
+      $.ajax({
+        url: 'http://cocoonut.top/list',
+        type: 'get',
+        dataType: 'json',
+        data:{
+          num: num,
+          page: 1
+        }
+      }).done(function(data, status, xhr){
+
+        // 序列化结果，输出内容
+        var cte = JSON.stringify(data, null, 2);
+
+        $('#content').html(cte);
+        console.log(cte);
+
+      });
+    });
+
+
+
+
+  </script>
+</body>
+</html>
