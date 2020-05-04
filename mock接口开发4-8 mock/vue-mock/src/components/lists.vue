@@ -26,11 +26,14 @@ export default {
   methods: {
     // 点击
     sub(page, num){
+      // 清空内容
+      this.respons.length = 0;
+
       // 发送get请求
       axios.get('cocoonut.top/list', {
         params:{
           page: page,
-          num: num
+          num: num,
         }
       }).then(res => {
           //请求成功
@@ -49,7 +52,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scoped>
   textarea{
     background-color: rgb(208, 241, 177);
   }
