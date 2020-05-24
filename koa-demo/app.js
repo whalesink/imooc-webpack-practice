@@ -17,16 +17,16 @@ router.prefix('/api');
 router.post('/user', ctx => {
     const header = ctx.request.header,
           b = ctx.request.body;
-    
+          
+    // 初始化响应体
     let res = {
         code: 200,
-        data: b,
+        // data: b,
         msg: 'success'
     };
 
     console.log(b);
     if(header.role !== 'admin'){
-        delete res.data;
         res.code = 401;
         res.msg = 'unauthorized post request'
         ctx.body = res;
@@ -34,15 +34,14 @@ router.post('/user', ctx => {
     }
 
     if((!b.name) || (!b.email)){
-        delete res.data;
         res.code = 404;
         res.msg = 'name或email不得为空'
         ctx.body = res;
         return;
     }
 
+    res.data = b;
     ctx.body = res;
-    // ctx.body = JSON.stringify(ctx.request.header, null, 2);
 });
 
 // 为应用添加中间件
