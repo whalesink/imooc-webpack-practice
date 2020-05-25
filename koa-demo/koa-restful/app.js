@@ -25,7 +25,6 @@ router.post('/user', ctx => {
         msg: 'success'
     };
 
-    console.log(b);
     if(header.role !== 'admin'){
         res.code = 401;
         res.msg = 'unauthorized post request'
