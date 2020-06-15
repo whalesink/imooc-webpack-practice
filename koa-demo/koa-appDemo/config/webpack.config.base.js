@@ -1,12 +1,18 @@
+/**
+ * webpack 通用基础配置
+ */
+
 const path = require('path');
+const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 debugger
 
+
 const webpackconfig = {
     target: 'node',
-    mode: 'development',
+    // mode: 'development',
     entry: {
         server: path.join(__dirname, 'src/index.js')
     },
@@ -15,8 +21,6 @@ const webpackconfig = {
         filename: '[name].bundle.js',
         path: path.join(__dirname, './dist')
     },
-
-    devtool: 'eval-source-map',
 
     module: {
         rules: [
@@ -33,7 +37,13 @@ const webpackconfig = {
     externals: [nodeExternals()],
 
     plugins: [
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: (process.env.NODE_ENV === 'production' || 
+                process.env.NODE_ENV === 'prod' ? "'production" : "'development")
+            }
+        })
     ],
 
     node: {
@@ -49,5 +59,5 @@ const webpackconfig = {
 
 }
 
-console.log(webpackconfig);
+
 module.exports = webpackconfig;
