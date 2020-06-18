@@ -7,19 +7,20 @@ const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-debugger
+const utils = require('./utils');
+// debugger
 
 
 const webpackconfig = {
     target: 'node',
     // mode: 'development',
     entry: {
-        server: path.join(__dirname, 'src/index.js')
+        server: path.join(utils.APP_PATH, 'index.js')
     },
 
     output: {
         filename: '[name].bundle.js',
-        path: path.join(__dirname, './dist')
+        path: utils.DIST_PATH
     },
 
     module: {

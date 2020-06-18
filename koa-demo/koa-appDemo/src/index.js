@@ -9,11 +9,14 @@ import koaBody from 'koa-body';
 // import jsonutil from 'koa-json';
 import cors from '@koa/cors';
 import compose from 'koa-compose';
-
+import compress from 'koa-compress'
 import path from 'path';
 import router from './routes/routes';
 
 const app = new Koa();
+
+const isDevMode = process.env.NODE_ENV === "production" ? false : true;
+
 
 // before: 
 
@@ -27,6 +30,12 @@ const middleware = compose([
     statics(path.join(__dirname, '../public')),
     cors()
 ]);
+
+// 若是生产模式就压缩中间件
+if(!isDevMode){
+    app.use(compress())
+}
+
 
 app.use(middleware);
 app.use(router());

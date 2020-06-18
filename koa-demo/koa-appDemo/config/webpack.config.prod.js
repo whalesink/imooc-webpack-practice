@@ -27,7 +27,17 @@ const webpackConfig = webpackMerge(baseWebpackConfig, {
                 parallel: true,
                 sourceMap: false
             })
-        ]
+        ],
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    name: 'commons',
+                    chunks: 'initial',
+                    minChunks: 3,
+                    enforce: true
+                }
+            }
+        }
     }
 });
 

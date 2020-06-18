@@ -1,9 +1,8 @@
-const cbr = require('koa-combine-routers');
+import cbr from 'koa-combine-routers'
+import demoRouter from './demoRouter'
 
-const aRoutes = require('./Router1');
-const bRoutes = require('./Router2');
 
-module.exports = cbr(
-    aRoutes, 
-    bRoutes
+
+export default cbr(
+    demoRouter
 );
