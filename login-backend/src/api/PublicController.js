@@ -1,11 +1,15 @@
+import svgCaptcha from 'svg-captcha';
+
 class PublicController{
     constructor(){
 
     }
 
-    async demo(ctx){
+    async getCaptcha(ctx){
+        const newCaptcha = svgCaptcha.create({});
+        console.log(newCaptcha);
         ctx.body = {
-            msg: 'body message~!~!'
+            msg: newCaptcha.data
         }
     }
 }

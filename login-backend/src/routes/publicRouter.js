@@ -6,7 +6,7 @@ import PublicController from '../api/PublicController';
 const router = new Router();
 
 // 接口的方法，业务在a内部
-router.get('/demo', PublicController.demo);
+router.get('/getCaptcha', PublicController.getCaptcha);
 
 // 导出这个路由实例
 export default router;
