@@ -9,7 +9,8 @@ class PublicController{
         const newCaptcha = svgCaptcha.create({});
         console.log(newCaptcha);
         ctx.body = {
-            msg: newCaptcha.data
+            code: 200,
+            data: newCaptcha.data
         }
     }
 }

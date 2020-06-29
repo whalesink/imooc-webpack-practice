@@ -12,6 +12,7 @@ import compose from 'koa-compose';
 import compress from 'koa-compress'
 import path from 'path';
 import router from './routes/routes';
+import helmet from 'koa-helmet';
 
 const app = new Koa();
 
@@ -28,7 +29,8 @@ const isDevMode = process.env.NODE_ENV === "production" ? false : true;
 const middleware = compose([
     koaBody(),
     statics(path.join(__dirname, '../public')),
-    cors()
+    cors(),
+    helmet()
 ]);
 
 // 若是生产模式就压缩中间件
