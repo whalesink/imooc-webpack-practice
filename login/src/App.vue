@@ -10,7 +10,7 @@
               name="title"
               required
               lay-verify="required"
-              placeholder="请输入标题"
+              placeholder="请输入用户名"
               autocomplete="off"
               class="layui-input"
             />
@@ -24,7 +24,7 @@
               name="title"
               required
               lay-verify="required"
-              placeholder="请输入标题"
+              placeholder="请输入密码"
               autocomplete="off"
               class="layui-input"
             />
@@ -38,12 +38,12 @@
               name="title"
               required
               lay-verify="required"
-              placeholder="请输入标题"
+              placeholder="请输入验证码"
               autocomplete="off"
               class="layui-input"
             />
           </div>
-          <div class="layui-form-mid">图片</div>
+          <div class="layui-form-mid svg" v-html="captcha" @click="getNewCaptcha"></div>
         </div>
         <button type="button" class="layui-btn">点击登录</button>
         <a href="http://www.layui.com" class="forget-link">忘记密码</a>
@@ -56,18 +56,41 @@
 import axios from 'axios'
 export default {
   name: 'app',
+
   data () {
-    return {}
+    return {
+      captcha: ''
+    }
   },
 
   mounted () {
-    axios.get('localhost:3000/getCaptcha').then(res => {
+    this.getNewCaptcha();
+  },
+
+  methods: {
+    getNewCaptcha () {
+      axios.get('http://localhost:3000/getCaptcha').then(res => {
       console.log(res)
+      if (res.data.code === 200) {
+        this.captcha = res.data.data
+      }
     })
       .catch(err => {
         console.log(err)
       })
-  }
+    },
+
+
+  },
+
+
+
+
+
+
+
+
+
 }
 </script>
 
@@ -90,5 +113,10 @@ input {
   &:hover {
     color: violet;
   }
+}
+
+.svg{
+  position: relative;
+  top: -15px;
 }
 </style>
