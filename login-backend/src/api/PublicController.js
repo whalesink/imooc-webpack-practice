@@ -8,7 +8,7 @@ class PublicController{
     async getCaptcha(ctx){
         const newCaptcha = svgCaptcha.create({
             // 字符串长度
-            size: 6,
+            size: 4,
             // 噪点值
             noise: Math.floor(Math.random() * 4),
             color: true,
