@@ -1,0 +1,13 @@
+version: "3"
+services:
+  redis-test:
+    image: "redis"
+    restart: always
+    container_name: "redis-test"
+    ports:
+      - 15001:6379
+    # 将容器内的数据映射到宿主机中
+    volumes:
+      - /home/redistest:/data
+    # 设置简单密码
+    command: ["redis-server", "--requirepass", "123456"]
