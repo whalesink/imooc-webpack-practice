@@ -24,6 +24,7 @@
     "koa-router": "^9.0.1",
     "koa-static": "^5.0.0",
     "mongoose": "^5.9.27",
+    "redis": "^3.0.2",
     "saslprep": "^1.0.3",
     "svg-captcha": "^1.4.0"
   },
