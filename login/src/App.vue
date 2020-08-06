@@ -57,8 +57,9 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 // import { required, email } from "vuelidate/lib/validators";
+import { getCode } from "@/API/login";
 
 export default {
   name: "app",
@@ -69,43 +70,37 @@ export default {
       name: "",
       psw: "",
       code: "",
-      errorMsg: []
+      errorMsg: [],
     };
   },
 
   mounted() {
-    this.getNewCaptcha();
+    getCode().then((res) => {
+      this.captcha = res.data;
+    });
   },
 
   methods: {
     // 获取验证码
     getNewCaptcha() {
-      axios
-        .get("http://localhost:3000/getCaptcha")
-        .then(res => {
-          console.log(res);
-          if (res.data.code === 200) {
-            this.captcha = res.data.data;
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      getCode().then((res) => {
+        this.captcha = res.data;
+      });
     },
-
-    checkForm() {
-      this.errorMsg = [];
-      if (!this.name) {
-        this.errorMsg.push("用户名不能为空！");
-      }
-      if (!this.psw) {
-        this.errorMsg.push("密码不能为空！");
-      }
-      if (!this.code) {
-        this.errorMsg.push("验证码不能为空！");
-      }
-    }
-  }
+    // getNewCaptcha() {
+    //   axios
+    //     .get("http://localhost:3000/getCaptcha")
+    //     .then(res => {
+    //       console.log(res);
+    //       if (res.data.code === 200) {
+    //         this.captcha = res.data.data;
+    //       }
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //     });
+    // },
+  },
 };
 </script>
 
@@ -135,8 +130,7 @@ input {
   top: -15px;
 }
 
-.error{
+.error {
   color: red;
 }
-
 </style>
