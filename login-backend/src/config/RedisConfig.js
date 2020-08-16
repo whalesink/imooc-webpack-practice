@@ -1,10 +1,11 @@
-import redis from 'redis'
+import redis from 'redis';
 import { type } from 'os';
+import config from './index'
 
 const options = {
-    host: '123.56.82.206',
-    port: 15001,
-    password: '123456',
+    host: config.REDIS.host,
+    port: config.REDIS.port,
+    password: config.REDIS.password,
     detect_buffers: true,
     retry_strategy: function (options) {
         if (options.error && options.error.code === "ECONNREFUSED") {
@@ -33,16 +34,20 @@ const client = redis.createClient(options);
  * @param {*} key 
  * @param {*} value 
  */
-const setVal = (key, value) => {
-    if(typeof value === 'undefined' || value == null || value === ''){
+const setVal = (key, value, timeout) => {
+    if (typeof value === 'undefined' || value == null || value === '') {
         return;
     }
 
-    if(typeof value === 'string'){
-        client.set(key, value);
-    }
-
-    if(typeof value === 'object'){
+    if (typeof value === 'string') {
+        if (typeof timeout !== undefined) {
+            client.set(key, value, 'EX', timeout, (err, result) => {
+                console.log('client.set -> err', err)
+              });
+        } else {
+            client.set(key, value);
+        }
+    }else if (typeof value === 'object') {
         Object.keys(value).forEach((item) => {
             client.hset(key, item, value[item], redis.print)
         })
@@ -52,7 +57,7 @@ const setVal = (key, value) => {
 const { promisify } = require("util");
 const getAsync = promisify(client.get).bind(client);
 
-const getVal = (key)=>{
+const getVal = (key) => {
     return getAsync(key);
 }
 

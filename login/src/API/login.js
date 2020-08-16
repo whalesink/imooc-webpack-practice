@@ -4,8 +4,12 @@ import axios from '@/utils/request'
  * 获取验证码接口
  * @param {*} sid 唯一标识
  */
-const getCode = () => {
-    return axios.get('getCaptcha')
+const getCode = (sid) => {
+    return axios.get('/public/getCaptcha', {
+        params: {
+            sid: sid
+        }
+    })
 }
 
 /**
