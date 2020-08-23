@@ -9,7 +9,7 @@ class PublicController{
     async getCaptcha(ctx){
         // 获取到param
         const body = ctx.request.query
-        console.log(body.sid);
+        // console.log(body.sid);
 
         const newCaptcha = svgCaptcha.create({
             // 字符串长度

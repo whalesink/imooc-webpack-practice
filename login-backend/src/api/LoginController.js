@@ -1,6 +1,7 @@
 import jsonwebtoken from 'jsonwebtoken'
 import config from '../config/index'
 import { checkCode } from '../common/Utils'
+import User from '../model/User'
 
 class LoginController {
     constructor() { }
@@ -18,15 +19,31 @@ class LoginController {
         let sid = body.sid
         let code = body.code
 
+        // console.log(body);
         // 检查图片验证码的时效性和正确性
-        if (checkCode(sid, code)) {
+        // console.log(' ?'+checkCode(sid, code));
+        if (await checkCode(sid, code)) {
             // 验证用户名密码
-            
+            let checkUserPasswd = ''
+
             // mongoDB查库
+            let user = await User.findOne({ username: body.username });
+            console.log('mongo user'+user);
+            if (!user) {
+                ctx.body = {
+                    code: 403,
+                    msg: '用户名或者密码错误'
+                }
+                return
+            }
 
+            // console.log(user.password);
+            if (user.password === body.password) {
+                checkUserPasswd = true
+            }
 
-            if (1) {
-                // 验证通过 返回token
+            if (checkUserPasswd) {
+                // 验证通过 返回token1·
                 let token = jsonwebtoken.sign({
                     _id: 'shio',
                     // exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24
@@ -38,9 +55,9 @@ class LoginController {
                 ctx.body = {
                     code: 200,
                     token: token,
-                    message: 'hello login'
+                    message: 'login success'
                 }
-            }else{
+            } else {
                 ctx.body = {
                     code: 402,
                     message: '用户名或密码错误！'

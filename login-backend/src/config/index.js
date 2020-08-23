@@ -9,7 +9,7 @@ const REDIS = {
     password: '123456'
 }
 
-const JWT_SECRET = 'Abc123'
+const JWT_SECRET = 'abc123'
 
 export default {
     DB_URL,

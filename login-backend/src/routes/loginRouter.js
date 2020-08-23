@@ -6,7 +6,7 @@ const router = new Router()
 router.prefix('/login')
 
 // 登录
-router.get('/login', loginController.login)
+router.post('/login', loginController.login)
 
 // 忘记密码
 // router.post('/forget', loginController.forget)
