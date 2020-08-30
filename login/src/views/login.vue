@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div class="layui-container">
+      <!-- <alert :isShow="true"></alert> -->
       <form class="layui-form layui-form-pane" action>
         <div class="layui-form-item">
           <label class="layui-form-label">用户名</label>
@@ -50,7 +51,7 @@
           <div class="layui-form-mid svg" v-html="captcha" @click="getNewCaptcha"></div>
         </div>
         <button type="button" class="layui-btn" @click="submit">点击登录</button>
-        <a href="http://www.layui.com" class="forget-link">忘记密码</a>
+        <a href class="forget-link">忘记密码</a>
       </form>
     </div>
   </div>
@@ -62,9 +63,11 @@
 import { getCode, login } from "@/API/login";
 import { v4 as uuidv4 } from "uuid";
 
+// import Alert from "@/components/modules/alert";
+
 export default {
   name: "app",
-
+  components: {},
   data() {
     return {
       captcha: "",
@@ -77,6 +80,7 @@ export default {
   },
 
   mounted() {
+    window.vue = this;
     // 检查sid
     let sid = "";
     if (localStorage.getItem("sid")) {

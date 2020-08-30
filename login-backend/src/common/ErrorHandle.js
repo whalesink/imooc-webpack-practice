@@ -8,7 +8,18 @@ export default (ctx, next) => {
                 message: 'Protected resource, use Authorization header to get access\n'
             }
         } else {
-            throw err;
+            // throw err;
+            ctx.status = err.status || 500;
+            // 非开发模式下不输出stack信息
+            // ctx.body = Object.assign({
+            //     code: 500,
+            //     msg: err.message
+            // }, process.env.NODE_ENV ===　"development" ? { stack: err.stack} : {});
+            ctx.body = {
+                code: 500,
+                msg: err.message,
+                stack: err.stack
+            }
         }
     });
 }
